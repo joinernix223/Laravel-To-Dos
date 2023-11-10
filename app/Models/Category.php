@@ -10,6 +10,7 @@ class Category extends Model
 {
     use HasFactory;
 
+    //Relaciones - Relación uno a muchos
     public function todos(){
         return $this->hasMany(Todo::class);
     }

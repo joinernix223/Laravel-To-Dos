@@ -10,16 +10,17 @@ class TodosController extends Controller
 {
     /**
      * CRUD
-     * 
+     *
      */
 
     public function store(Request $request){
+        //TODO Implementar StoreFormRequest
         $request->validate([
             'title' => 'required|min:3',
             'category_id'
         ]);
-        
-        
+
+
         $todo = new Todo;
         $todo->title = $request->title;
         $todo->category_id = $request->category_id;
@@ -32,10 +33,13 @@ class TodosController extends Controller
 
         $todos = Todo::all();
         $categories = Category::all();
+        //TODO Semana 2 - Listar los todos con su categoría - Eloquent - MOdels que es el with()
         return view('todos.index', ['todos' => $todos, 'categories' => $categories]);
     }
-    public function show ($id){
+    public function show ($id)
+    {
 
+        //TODO Implementar ShowFormRequest
         $todos = Todo::find($id);
         $categories = Category::all();
         return view('todos.show', ['todo' => $todos, 'categories' => $categories]);
@@ -51,9 +55,10 @@ class TodosController extends Controller
     public function update (Request $request, $id){
         $todo = Todo::find($id);
         $todo ->title = $request->title;
+        //TODO Cambiar método save por update
         $todo-> save();
-        
+
         return redirect()->route('todos')->with('success', 'Tarea Actualizada Perfecto');
     }
-    
+
 }

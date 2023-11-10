@@ -26,8 +26,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        //TODO Todas las migraciones deben tener un rollback
         Schema::table('todos', function (Blueprint $table) {
-            //
+            //1. Eliminar la llave foranea
+            //2. Eliminar la columna
         });
     }
 };

@@ -42,4 +42,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    //TODO Implementar una relación de Uno a Muchos, de Usuario a Todos (Un usuario tiene muchas tareas)
 }

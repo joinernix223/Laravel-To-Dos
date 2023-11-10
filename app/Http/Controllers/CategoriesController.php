@@ -24,7 +24,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+        //TODO Los métodos que no se usen se pueden borrar
     }
 
     /**
@@ -32,12 +32,12 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //TODO Implementar StoreFormRequest
         $request->validate([
             'name' => 'required|unique:categories|max:255',
             'color'=> 'required|max:7'
         ]);
-        
+        //$input = $request->validated();
         $category = new Category();
         $category-> name = $request -> name;
         $category-> color = $request -> color;
@@ -52,6 +52,7 @@ class CategoriesController extends Controller
      */
     public function show(string $id)
     {
+        //TODO Implementar ShowFormRequest
         $category = Category::find($id);
         return view('categories.show', ['category' => $category]);
     }
@@ -61,7 +62,7 @@ class CategoriesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        //TODO Los métodos que no se usen se pueden borrar
     }
 
     /**
@@ -69,12 +70,14 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //Implementar UpdateFormRequest
         $category = Category::find($id);
         $category-> name = $request -> name;
         $category-> color = $request -> color;
-        $category-> save();
-        
+        //TODO Cambiar método save por update
+        //$category->update($request->validated());
+        $category->save();
+
         return redirect()->route('categories.index')->with('success', 'Categoria Actualizada!');
 
     }
@@ -84,8 +87,9 @@ class CategoriesController extends Controller
      */
     public function destroy($category)
     {
-        //
+        //TODO Implementar DeleteFormRequest, validar que se elimine solo categorias que no tenga tareas asociadas
         $category = Category::find($category);
+        //
         $category->todos()->each(function($todo){
             $todo->delete();
         });
