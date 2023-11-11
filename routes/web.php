@@ -29,6 +29,9 @@ Route::get('/tareas/{id}', [TodosController::class, 'show'])->name('todos-show')
 
 //TODO Invesigar diferencia entre método PUT y PATCH
 Route::patch('/tareas/{id}', [TodosController::class, 'update'])->name('todos-update'); //Update
+
+Route::get('/todos/{id}', [TodosController::class , 'show'])->name('todos-edit');
+
 Route::delete('/tareas/{id}', [TodosController::class, 'destroy'])->name('todos-destroy'); //Eliminar
 
 

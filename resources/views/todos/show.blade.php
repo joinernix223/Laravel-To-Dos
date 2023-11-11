@@ -20,12 +20,17 @@
             <label for="title" class="form-label">Título de la tarea</label>
             <input type="text" class="form-control mb-2" name="title" id="exampleFormControlInput1" placeholder="Comprar la cena" value="{{ $todo->title }}">
 
-             <label for="category_id" class="form-label">Categoria de la tarea</label>
+
+            <label for="category_id" class="form-label">Categoria de la tarea</label>
             <select name="category_id" class="form-select">
                 @foreach ($categories as $category)
-                    <option value="{{$category->id}}">{{$category->name}}</option>
+                    <option value="{{ $category->id }}" {{ $category->id == $todo->category_id ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
                 @endforeach
             </select>
+            
+            @method('PATCH')
             <input type="submit" value="Actualizar tarea" class="btn btn-primary my-2" />
         </div>
     </form>
