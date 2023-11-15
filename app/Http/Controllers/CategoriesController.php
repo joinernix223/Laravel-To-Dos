@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Http\Requests\StoreFormRequest;
+use App\Http\Requests\ShowFormRequest;
+use App\Http\Requests\UpdateFormRequest;
+use App\Http\Requests\DeleteFormRequest;
 
 
 class CategoriesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         //
@@ -19,25 +20,18 @@ class CategoriesController extends Controller
         return view('categories.index', ['categories' => $categories]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(StoreFormRequest $request)
     {
-        //TODO Los métodos que no se usen se pueden borrar
-    }
+        //TODO Implementar StoreFormRequest COMPLETED
+        //Duda se debe crear un request para cada metodo?
+        /* Ejemplo : 
+        StoreFormRequest
+        ShowFormRequest
+        UpdateFormRequest
+        */
+        
+        $input = $request->validated();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //TODO Implementar StoreFormRequest
-        $request->validate([
-            'name' => 'required|unique:categories|max:255',
-            'color'=> 'required|max:7'
-        ]);
-        //$input = $request->validated();
         $category = new Category();
         $category-> name = $request -> name;
         $category-> color = $request -> color;
@@ -47,45 +41,36 @@ class CategoriesController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(ShowFormRequest $request, string $id)
     {
         //TODO Implementar ShowFormRequest
         $category = Category::find($id);
+        $validatedData = $request->validated($id);
+        
+        if(!$category){
+            abort(404);
+        }
         return view('categories.show', ['category' => $category]);
+        
+    
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(UpdateFormRequest $request, string $id)
     {
-        //TODO Los métodos que no se usen se pueden borrar
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //Implementar UpdateFormRequest
+        //Implementar UpdateFormRequest 
         $category = Category::find($id);
+        $input = $request->validated();
         $category-> name = $request -> name;
         $category-> color = $request -> color;
         //TODO Cambiar método save por update
         //$category->update($request->validated());
-        $category->save();
+        $category->update();
 
         return redirect()->route('categories.index')->with('success', 'Categoria Actualizada!');
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($category)
+    public function destroy(DeleteFormRequest $request, $category)
     {
         //TODO Implementar DeleteFormRequest, validar que se elimine solo categorias que no tenga tareas asociadas
         $category = Category::find($category);

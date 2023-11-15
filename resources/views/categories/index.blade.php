@@ -9,9 +9,15 @@
                   <h6 class="alert alert-success">{{ session('success') }}</h6>
                 @endif
         
-                @error('name')
-                <h6 class="alert alert-danger">{{ $message }}</h6>
-                @enderror
+                @if ($errors->any())
+                    <div >
+                        <ul class="alert alert-danger px-5">
+                            @foreach ($errors->all() as $error)
+                                <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                 <div class="mb-3">
                   <label for="name" class="form-label">Nombre de la Categoria</label>

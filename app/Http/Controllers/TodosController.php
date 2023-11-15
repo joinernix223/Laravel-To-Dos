@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Todo;
 use App\Models\Category;
+use App\Http\Requests\TodosStoreFormRequest;
+
 
 class TodosController extends Controller
 {
@@ -13,21 +15,16 @@ class TodosController extends Controller
      *
      */
 
-    public function store(Request $request){
-        //TODO Implementar StoreFormRequest
-        $request->validate([
-            'title' => 'required|min:3',
-            'category_id'
-        ]);
-
-
-        $todo = new Todo;
-        $todo->title = $request->title;
-        $todo->category_id = $request->category_id;
-        $todo->save();
-
-        return redirect()->route('todos')->with('success', 'Tarea creada Correctamente');
-    }
+     public function store(TodosStoreFormRequest $request)
+     {
+         $todo = new Todo;
+         $todo->title = $request->title;
+         $todo->category_id = $request->category_id;
+         $todo->save();
+ 
+         return redirect()->route('todos')->with('success', 'Tarea creada Correctamente');
+     }
+ 
 
     public function index (){
 
@@ -56,7 +53,7 @@ class TodosController extends Controller
         $todo = Todo::find($id);
         $todo ->title = $request->title;
         //TODO Cambiar método save por update
-        $todo-> save();
+        $todo-> update();
 
         return redirect()->route('todos')->with('success', 'Tarea Actualizada Perfecto');
     }

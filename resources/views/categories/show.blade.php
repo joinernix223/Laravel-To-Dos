@@ -49,7 +49,6 @@
             </div>
         @endforeach 
       @else
-            <br>
               <span>No hay tareas para esta categoria</span>
          @endif
         </div> 
