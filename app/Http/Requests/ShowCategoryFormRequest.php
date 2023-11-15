@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteFormRequest extends FormRequest
+class ShowCategoryFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,20 @@ class DeleteFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            /*
+            DUDAS
+            -Mandar error a la vista. Al no cumplir validacion
+            -Sintaxis de validacion de FormRequest
+            */
+            'id' =>  'exists:categories,id'
+
         ];
     }
+    public function messages(): array
+    {
+        return[
+            'id.required' => 'El id no existe'
+        ];
+    }
+    
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TodosStoreFormRequest extends FormRequest
+class UpdateTodosFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,17 +23,17 @@ class TodosStoreFormRequest extends FormRequest
     {
         return [
             //
-            'title' => ['required', 'max:25'],
-            'category_id' => ['exists:categories,id']
+            'title' => 'required',
+            'category_id' => 'required',
+        ];
+    }
+    public function messages(): array
+    {
+        
+        return[
+            'title' => 'El Titulo es obligatorio',
+            'category_id' => 'La Categoria es obligatoria',
         ];
     }
 
-    public function messages()
-    {
-        return[
-            'title.required' => 'El titulo es obligatorio',
-            'title.max' => 'Maximo 25 caracteres',
-            'category_id.exists' => 'La Categoria no existe'
-        ];
-    }
 }

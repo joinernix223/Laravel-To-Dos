@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Http\Requests\StoreFormRequest;
-use App\Http\Requests\ShowFormRequest;
-use App\Http\Requests\UpdateFormRequest;
-use App\Http\Requests\DeleteFormRequest;
+use App\Http\Requests\StoreCategoryFormRequest;
+use App\Http\Requests\ShowCategoryFormRequest;
+use App\Http\Requests\UpdateCategoryFormRequest;
+use App\Http\Requests\DeleteCategoryFormRequest;
 
 
 class CategoriesController extends Controller
@@ -20,15 +20,9 @@ class CategoriesController extends Controller
         return view('categories.index', ['categories' => $categories]);
     }
 
-    public function store(StoreFormRequest $request)
+    public function store(StoreCategoryFormRequest $request)
     {
-        //TODO Implementar StoreFormRequest COMPLETED
-        //Duda se debe crear un request para cada metodo?
-        /* Ejemplo : 
-        StoreFormRequest
-        ShowFormRequest
-        UpdateFormRequest
-        */
+        //TODO Implementar StoreCategoryFormRequest COMPLETED
         
         $input = $request->validated();
 
@@ -41,23 +35,24 @@ class CategoriesController extends Controller
 
     }
 
-    public function show(ShowFormRequest $request, string $id)
+    public function show(ShowCategoryFormRequest $request, string $id)
     {
-        //TODO Implementar ShowFormRequest
+        //TODO Implementar ShowCategoryFormRequest COMPLETED
         $category = Category::find($id);
-        $validatedData = $request->validated($id);
         
         if(!$category){
-            abort(404);
+            return redirect()->route('categories.index')->with('error', 'Categoria no Encontrada');
+            
         }
+        $validatedData = $request->validated();
         return view('categories.show', ['category' => $category]);
         
     
     }
 
-    public function update(UpdateFormRequest $request, string $id)
+    public function update(UpdateCategoryFormRequest $request, string $id)
     {
-        //Implementar UpdateFormRequest 
+        //Implementar UpdateCategoryFormRequest COMPLETED
         $category = Category::find($id);
         $input = $request->validated();
         $category-> name = $request -> name;
@@ -70,17 +65,19 @@ class CategoriesController extends Controller
 
     }
 
-    public function destroy(DeleteFormRequest $request, $category)
+    public function destroy(DeleteCategoryFormRequest $request, $category)
     {
-        //TODO Implementar DeleteFormRequest, validar que se elimine solo categorias que no tenga tareas asociadas
+        //TODO Implementar DeleteFormRequest COMPLETED, 
+
+        //validar que se elimine solo categorias que no tenga tareas asociadas PENDIENTE
         $category = Category::find($category);
-        //
+        
         $category->todos()->each(function($todo){
             $todo->delete();
         });
         $category -> delete();
 
-        return redirect()->route('categories.index')->with('success', 'Categoria Eliminada!');
+        return redirect()->route('categories.index')->with('success', 'Categoría Eliminada Correctamente!!');
 
     }
 }

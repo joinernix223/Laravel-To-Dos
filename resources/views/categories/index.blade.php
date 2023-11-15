@@ -19,6 +19,12 @@
                     </div>
                 @endif
 
+                @if(session()->has('error'))
+                    <div class="alert alert-danger">
+                    {{ session()->get('error') }}
+                 </div>
+                 @endif
+
                 <div class="mb-3">
                   <label for="name" class="form-label">Nombre de la Categoria</label>
                   <input type="text" class="form-control" id="exampleInputEmail1" name="name">

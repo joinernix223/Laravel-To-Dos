@@ -12,6 +12,11 @@
             @error('title')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
+            @if(session()->has('error'))
+                    <div class="alert alert-danger">
+                    {{ session()->get('error') }}
+                 </div>
+                 @endif
 
             @if (session('success'))
                     <h6 class="alert alert-success">{{ session('success') }}</h6>
@@ -28,7 +33,9 @@
                         {{ $category->name }}
                     </option>
                 @endforeach
+                <option value="5">nada-TST</option>
             </select>
+            
             
             @method('PATCH')
             <input type="submit" value="Actualizar tarea" class="btn btn-primary my-2" />

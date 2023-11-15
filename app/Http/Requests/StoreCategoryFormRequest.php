@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShowFormRequest extends FormRequest
+class StoreCategoryFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,19 +22,16 @@ class ShowFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            /*
-            DUDAS
-            -Mandar error a la vista. Al no cumplir validacion
-            -Sintaxis de validacion de FormRequest
-            */
-            'id' =>  'exists:categories,id'
-
+            'name' => ['required', 'unique:categories', 'max:25'],
+            'color' => ['required']
         ];
     }
     public function messages(): array
     {
         return[
-            'id.required' => 'El id no existe'
+            'name.required' => 'El nombre de la categoria es obligatorio',
+            'name.unique' => 'El nombre de la categoria ya existe ',
+            'color.required' => 'El color es obigatorio',
         ];
     }
     
