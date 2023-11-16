@@ -24,7 +24,7 @@ class TodosController extends Controller
          $todo->category_id = $request->category_id;
          $todo->save();
  
-         return redirect()->route('todos')->with('success', 'Tarea creada Correctamente');
+         return redirect()->route('todos.index')->with('success', 'Tarea creada Correctamente');
      }
  
 
@@ -52,7 +52,7 @@ class TodosController extends Controller
         $todo = Todo::find($id);
         $todo->delete();
 
-        return redirect()->route('todos')->with('success', 'Tarea Borrada Con Exito');
+        return redirect()->route('todos.index')->with('success', 'Tarea Borrada Con Exito');
 
     }
     
@@ -63,7 +63,7 @@ class TodosController extends Controller
         //TODO Cambiar método save por update
         $todo-> update();
 
-        return redirect()->route('todos')->with('success', 'Tarea Actualizada Con Exito!');
+        return redirect()->route('todos.index')->with('success', 'Tarea Actualizada Con Exito!');
     }
 
 }
