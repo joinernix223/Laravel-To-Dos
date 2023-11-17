@@ -35,7 +35,7 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('todos') }}">Tareas</a>
+                <a class="nav-link" href="{{ route('todos.store') }}">Tareas</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('categories.index') }}">Categorias</a>
