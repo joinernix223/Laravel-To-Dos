@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTodosFormRequest extends FormRequest
+class StoreUsersFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,19 +22,17 @@ class StoreTodosFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'max:25'],
-            'category_id' => 'exists:categories,id|numeric',
+            'name_user' => 'required',
+            'email' => 'email:rfc,dns|required',
+            'password' => 'required'
         ];
     }
-    
-    public function messages()
-    {
-        return [
-            'title.required' => 'El título es obligatorio',
-            'title.max' => 'El título debe contener máximo 25 caracteres',
-            'category_id.numeric' => 'Error: Solo numeros',
-            'category_id.exists' => 'Error: La Categoria no existe',
-
+    public function messages(){
+        return[
+            'name_user.required' => 'Nombre de usuario obligatorio',
+            'email.email' => 'Email no valido',
+            'email.required' => 'Email Obligatorio',
+            'password' => 'Contraseña requerida'
         ];
     }
 }
