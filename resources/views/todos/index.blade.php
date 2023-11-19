@@ -8,15 +8,21 @@
           <h6 class="alert alert-success">{{ session('success') }}</h6>
         @endif
 
-        @error('title')
-        <h6 class="alert alert-danger">{{ $message }}</h6>
-        @enderror
+        @foreach ($errors->all() as $error )
+        <div class="alert alert-danger">{{$error}}</div>
+        @endforeach
+        @if(session()->has('error'))
+        <div class="alert alert-danger">
+          {{session()->get('error')}}
+        </div>
+        @endif
         <div class="mb-3">
           <label for="Titulo" class="form-label">Titulo de la tarea</label>
           <input type="text" class="form-control" id="exampleInputEmail1" name="title">
         </div>
-        <label for="category_id" class="form-label">Categoria de la tarea</label>
+        <label for="category_ids" class="form-label">Categoria de la tarea</label>
         <select name="category_id" class="form-select">
+          <option value="10005">test:formRequestID</option>
           @foreach ($categories as $category )
             <option value="{{$category->id}}">{{$category->name}}</option>
           @endforeach
