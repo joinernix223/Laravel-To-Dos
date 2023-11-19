@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\StoreUsersFormRequest;
+use App\Http\Requests\ShowUsersFormRequest;
+use App\Http\Requests\UpdateUsersFormRequest;
+use App\Http\Requests\DeleteUsersFormRequest;
 
 
 class UsersController extends Controller
@@ -30,16 +33,21 @@ class UsersController extends Controller
         return redirect()->route('users.index')->with('success', 'Usuario agregado correctamente');
     }
 
-    public function show(Request $request, $id)
+    public function show(ShowUsersFormRequest $request, $id)
     {
         $user = User::find($id);
+        if(!$user){
+           return redirect()->route('users.index')->with('error', 'El Usuario no existe');
+        }
+        
 
         return view('users.show', ['user' => $user, 'users' => $user]);
     }
 
-    public function update(Request $request,$id)
+    public function update(UpdateUsersFormRequest $request,$id)
     {
         $user = User::find($id);
+        
         $user -> name = $request->name_user;
         $user -> email = $request->email;
         $user-> password = $request->password; 
@@ -54,7 +62,7 @@ class UsersController extends Controller
         return view('users.create');
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(DeleteUsersFormRequest $request, $id)
     {
         $user = User::find($id);
         $user -> delete();
