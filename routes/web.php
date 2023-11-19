@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\controllers\TodosController;
 use App\Http\controllers\CategoriesController;
+use App\Http\controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +40,9 @@ Route::get('/', function () {
 // Route::delete('/tareas/{id}', [TodosController::class, 'destroy'])->name('todos-destroy'); //Eliminar
 
 Route::resource('todos', TodosController::class);
- 
- Route::resource('categories', CategoriesController::class)->only(['index', 'store', 'show', 'destroy']);
+Route::resource('categories', CategoriesController::class)->only(['index', 'store', 'show', 'destroy']);
+Route::resource('users', UsersController::class);
+
+
  //TODO Hacer pruebas con only y except Route
 // Route::resource('categories', CategoriesController::class)->only(['index', 'show']);
