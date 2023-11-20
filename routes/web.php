@@ -40,7 +40,7 @@ Route::get('/', function () {
 // Route::delete('/tareas/{id}', [TodosController::class, 'destroy'])->name('todos-destroy'); //Eliminar
 
 Route::resource('todos', TodosController::class);
-Route::resource('categories', CategoriesController::class)->only(['index', 'store', 'show', 'destroy']);
+Route::resource('categories', CategoriesController::class);
 Route::resource('users', UsersController::class);
 
 

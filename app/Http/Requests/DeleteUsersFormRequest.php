@@ -22,7 +22,12 @@ class DeleteUsersFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'id' => 'exists:users,id'
+        ];
+    }
+    public function messages(){
+        return[
+            'id.exists' => 'El Id del usuario no existe'
         ];
     }
 }
