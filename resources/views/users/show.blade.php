@@ -33,7 +33,9 @@
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Contraseña:</label>
-              <input name="pasword" type="text" class="form-control" id="exampleInputPassword1" value="{{$users->password}}">
+
+              <input name="password" type="text" class="form-control" id="exampleInputPassword1" value="{{$users->password}}">
+
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Confirmar Contraseña:</label>

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTodosFormRequest extends FormRequest
+class DeleteUsersFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,19 +22,12 @@ class StoreTodosFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'max:25'],
-            'category_id' => 'exists:categories,id|numeric',
+            'id' => 'exists:users,id'
         ];
     }
-    
-    public function messages()
-    {
-        return [
-            'title.required' => 'El título es obligatorio',
-            'title.max' => 'El título debe contener máximo 25 caracteres',
-            'category_id.numeric' => 'Error: Solo numeros',
-            'category_id.exists' => 'Error: La Categoria no existe',
-
+    public function messages(){
+        return[
+            'id.exists' => 'El Id del usuario no existe'
         ];
     }
 }

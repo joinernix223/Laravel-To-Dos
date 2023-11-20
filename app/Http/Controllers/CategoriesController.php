@@ -25,11 +25,12 @@ class CategoriesController extends Controller
         //TODO Implementar StoreCategoryFormRequest COMPLETED
         
         $input = $request->validated();
+        
 
-        $category = new Category();
-        $category-> name = $request -> name;
-        $category-> color = $request -> color;
-        $category-> save();
+        $input = new Category();
+        $input-> name = $request -> name;
+        $input-> color = $request -> color;
+        $input-> save();
 
         return redirect()->route('categories.index')->with('success', 'Nueva Categoria Agregada!');
 
