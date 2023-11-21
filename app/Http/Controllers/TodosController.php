@@ -78,6 +78,14 @@ class TodosController extends Controller
         $todos = todo::all();
         $categories = Category::all();
         $users = User::all();
+
+        $todos_length = count($todos);
+        $categories_length = count($categories);
+        $users_length = count($users);
+
+        if ($todos_length != $categories_length || $todos_length != $users_length || $categories_length != $users_length){
+           return 'la colecion de datos no es igual' ;
+        }
         $pdf = PDF::loadView('todos.make_pdf', compact('todos', 'categories', 'users'));
         return $pdf->download('List-user.pdf');
     }
