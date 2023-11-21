@@ -7,6 +7,7 @@
     
     <div class="container list-group mt-3 border p-4">
     @if(session('success'))
+
         <div class="alert alert-success">{{session('success')}}</div>
     @endif
     @if(session()->has('error'))
@@ -24,6 +25,7 @@
                         @csrf
                       <button type="submit"  class="btn btn-danger">Eliminar</button>
                     </form>
+
                 {{-- <span class="badge bg-primary">Activo</span> --}}
                 </li>
             @endforeach
@@ -31,8 +33,6 @@
         <li>No hay usuarios Registrados</li>
         @endif
         <a href="{{route ('users.create')}}" class="btn btn-outline-primary mt-4">Agregar Usuario</a>
-
-
         </div>
 </div>
 

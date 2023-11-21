@@ -40,7 +40,11 @@ Route::get('/', function () {
 // Route::delete('/tareas/{id}', [TodosController::class, 'destroy'])->name('todos-destroy'); //Eliminar
 
 Route::resource('todos', TodosController::class);
+
 Route::resource('categories', CategoriesController::class);
+
+ 
+
 Route::resource('users', UsersController::class);
 Route::get('/download-pdf', [TodosController::class, 'generatePDF'])->name('pdf');
 
