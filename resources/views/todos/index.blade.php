@@ -28,7 +28,10 @@
           @endforeach
         </select>
         <br>
-        <button type="submit" class="btn btn-primary">Crear Nueva Tarea</button>
+        <div class="mb-4">
+          <button type="submit" class="btn btn-primary">Crear Nueva Tarea</button>
+        <a href="{{route('pdf')}}" class="btn btn-primary">Generar (PDF) Lista Tareas</a>
+        </div>
         </form>
         <div>
         @foreach ($todos as $todo )

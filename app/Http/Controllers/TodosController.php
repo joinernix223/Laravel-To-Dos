@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Todo;
 use App\Models\Category;
+use App\Models\User;
 use App\Http\Requests\StoreTodosFormRequest;
 use App\Http\Requests\ShowTodoFormRequest;
 use App\Http\Requests\UpdateTodosFormRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 
 class TodosController extends Controller
@@ -70,6 +73,13 @@ class TodosController extends Controller
         $todo-> update();
 
         return redirect()->route('todos.index')->with('success', 'Tarea Actualizada Con Exito!');
+    }
+    public function generatePDF(){
+        $todos = todo::all();
+        $categories = Category::all();
+        $users = User::all();
+        $pdf = PDF::loadView('todos.make_pdf', compact('todos', 'categories', 'users'));
+        return $pdf->download('List-user.pdf');
     }
 
 }
