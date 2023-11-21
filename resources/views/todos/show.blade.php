@@ -4,7 +4,7 @@
 
 <div class="container w-25 border p-4">
     <div class="row mx-auto">
-    <form  method="POST" action="{{ route('todos-update', ['id' => $todo->id]) }}">
+    <form  method="POST" action="{{ route('todos.update', ['todo' => $todo->id]) }}">
         @method('PATCH')
         @csrf
 
