@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Todo;
 use App\Models\Category;
+
+use App\Repositories\TodosRepository;
 use App\Http\Requests\StoreTodosFormRequest;
 use App\Http\Requests\ShowTodoFormRequest;
 use App\Http\Requests\UpdateTodosFormRequest;
@@ -16,6 +18,13 @@ class TodosController extends Controller
      * CRUD
      *
      */
+
+    public function __construct(TodosRepository $todoRepository) 
+    {
+        
+        $this->todoRepository = $todoRepository; 
+        
+    }
 
      public function store(StoreTodosFormRequest $request) // FormRequest COMPLETED
      {
@@ -31,9 +40,13 @@ class TodosController extends Controller
     public function index (){ 
 
         $todos = Todo::all();
+        $todos = $this->todoRepository->all();
         $categories = Category::all();
         //TODO Semana 2 - Listar los todos con su categoría - Eloquent - MOdels que es el with()
-        return view('todos.index', ['todos' => $todos, 'categories' => $categories]);
+        return view('todos.index', [
+            'todos' => $todos,
+            'categories' => $categories
+            ]);
     }
 
 
@@ -42,6 +55,9 @@ class TodosController extends Controller
     {
         //TODO Implementar ShowTodoFormRequest COMPLETED
         $todo = Todo::find($id);
+        if(!$todo){
+            return redirect()->route('todos.index')->with('error', 'La Tarea no existe');
+        }
         $categories = Category::all();
         return view('todos.show', ['todo' => $todo, 'categories' => $categories]);
 

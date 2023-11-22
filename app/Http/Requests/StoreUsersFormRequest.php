@@ -22,6 +22,7 @@ class StoreUsersFormRequest extends FormRequest
     public function rules(): array
     {
         return [
+<<<<<<< HEAD
             'name_user' => 'max:10|required',
             'email' => 'email:rfc,dns',
             'password' => 'required',
@@ -34,6 +35,19 @@ class StoreUsersFormRequest extends FormRequest
             'user.max' => 'Maximo 10 cararacteres',
             'email' => 'Email no valido',
             'password' => 'Contraseña obligatoria'
+=======
+            'name_user' => 'required',
+            'email' => 'email:rfc,dns|required',
+            'password' => 'required'
+        ];
+    }
+    public function messages(){
+        return[
+            'name_user.required' => 'Nombre de usuario obligatorio',
+            'email.email' => 'Email no valido',
+            'email.required' => 'Email Obligatorio',
+            'password' => 'Contraseña requerida'
+>>>>>>> fc023f1689a83ea2e41d959a25ef05ac30177247
         ];
     }
 }
