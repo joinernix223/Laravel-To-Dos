@@ -33,7 +33,10 @@ class TodosController extends Controller
         $todos = Todo::all();
         $categories = Category::all();
         //TODO Semana 2 - Listar los todos con su categoría - Eloquent - MOdels que es el with()
-        return view('todos.index', ['todos' => $todos, 'categories' => $categories]);
+        return view('todos.index', [
+            'todos' => $todos,
+            'categories' => $categories
+            ]);
     }
 
 
@@ -42,6 +45,9 @@ class TodosController extends Controller
     {
         //TODO Implementar ShowTodoFormRequest COMPLETED
         $todo = Todo::find($id);
+        if(!$todo){
+            return redirect()->route('todos.index')->with('error', 'La Tarea no existe');
+        }
         $categories = Category::all();
         return view('todos.show', ['todo' => $todo, 'categories' => $categories]);
 
