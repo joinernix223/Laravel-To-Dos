@@ -1,30 +1,27 @@
 <?php
 
 namespace App\Repositories;
-use App\Models\Todo;
 
-class TodosRepository
+use App\Models\User;
+
+class UsersRepository
 {
     private $model;
 
     public function __construct()
     {
-        $this->model = new Todo();
+        $this->model = new User();
     }
 
-    public function create($todo)
-    {
-        $todo->save();
-    }
     public function all()
     {
         return $this->model->all();
     }
-    public function show($id)
+    public function create($user)
     {
-        return $this->model::find($id);
+        $user->save();
     }
-    public function destroy($id)
+    public function show($id)
     {
         return $this->model::find($id);
     }
@@ -32,5 +29,8 @@ class TodosRepository
     {
         return $this->model::find($id);
     }
-
+    public function delete($id)
+    {
+        return $this->model::find($id);
+    }
 }
