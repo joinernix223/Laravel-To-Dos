@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('todos', function (Blueprint $table) {
-            $table->bigInteger('category_id')->unsigned();
+            $table->bigInteger('category_id')->unsigned()
+            ->after('title');
             $table
             ->foreign('category_id')
             ->references('id')
-            ->on('categories')
-            ->after('title');
+            ->on('categories');
         });
     }
 
@@ -29,7 +29,10 @@ return new class extends Migration
         //TODO Todas las migraciones deben tener un rollback
         Schema::table('todos', function (Blueprint $table) {
             //1. Eliminar la llave foranea
+            $table->dropForeign(['category_id']);
             //2. Eliminar la columna
+            $table
+            ->dropColumn('category_id');
         });
     }
 };
