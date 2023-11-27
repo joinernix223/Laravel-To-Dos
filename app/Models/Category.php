@@ -10,6 +10,10 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'color',
+    ];
     //Relaciones - Relación uno a muchos
     public function todos(){
         return $this->hasMany(Todo::class);

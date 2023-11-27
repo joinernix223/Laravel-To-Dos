@@ -4,37 +4,11 @@ namespace App\Repositories;
 
 use  App\Models\Category;
 
-class CategoriesRepository
+class CategoriesRepository extends BaseRepository
 {
- 
-    private $model;
 
-    public function __construct()
+    public function model(): string
     {
-        $this->model = new Category();
+        return Category::class;
     }
-
-    public function all()
-    {
-        return $this->model->all();
-    }
-    public function create($category)
-    {
-        $category->save();
-        return $category;
-    }
-    public function show($id)
-    {
-        return $this->model::find($id);
-        
-    }
-    public function update($id)
-    {
-        return $id = $this->model::find($id);
-    }
-    public function destroy($id)
-    {
-        return $id = $this->model::find($id);
-    }
-
 }
