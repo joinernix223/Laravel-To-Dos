@@ -46,6 +46,7 @@ Route::resource('categories', CategoriesController::class);
  
 
 Route::resource('users', UsersController::class);
+Route::get('/download-pdf', [TodosController::class, 'generatePDF'])->name('pdf');
 
 
  //TODO Hacer pruebas con only y except Route
