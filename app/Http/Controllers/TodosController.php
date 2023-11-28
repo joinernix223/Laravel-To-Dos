@@ -35,11 +35,12 @@ class TodosController extends Controller
 
      public function store(StoreTodosFormRequest $request) // FormRequest COMPLETED
      {
+         $input = $request->validated();
          $todo = new Todo;
-         $todo->title = $request->title;
-         $todo->category_id = $request->category_id;
+         $todo->title = $input['title'];
+         $todo->category_id = $input['category_id'];
         // $todo->save();
-        $this->todoRepository->create($todo);
+        $this->todoRepository->create($input);
  
          return redirect()->route('todos.index')->with('success', 'Tarea creada Correctamente');
      }
@@ -60,7 +61,7 @@ class TodosController extends Controller
     public function show (ShowTodoFormRequest $request, $id) 
     {
         //TODO Implementar ShowTodoFormRequest COMPLETED
-        $todo = $this->todoRepository->show($id);
+        $todo = $this->todoRepository->find($id);
         if(!$todo){
             return redirect()->route('todos.index')->with('error', 'La Tarea no existe');
         }
@@ -71,20 +72,22 @@ class TodosController extends Controller
 
     
     public function destroy ($id){ //PENDIENTE
-        $todo = $this->todoRepository->destroy($id);
-        $todo->delete();
-
+        $todo = $this->todoRepository->delete($id);
+        
         return redirect()->route('todos.index')->with('success', 'Tarea Borrada Con Exito');
 
     }
     
     public function update (UpdateTodosFormRequest $request, $id){
-        $todo = $this->todoRepository->update($id);
-        $todo ->title = $request->title;
-        $todo -> category_id = $request->category_id;
-        //TODO Cambiar método save por update
-        $todo-> update();
+        $input = $request->validated();
 
+        $todo = $this->todoRepository->find($id);
+
+        $todo->title = $input['title'];
+        $todo->category_id = $input['category_id'];
+        //TODO Cambiar método save por update
+        $this->todoRepository->update($input, $id);
+        
         return redirect()->route('todos.index')->with('success', 'Tarea Actualizada Con Exito!');
     }
 

@@ -4,33 +4,21 @@ namespace App\Repositories;
 
 use App\Models\User;
 
-class UsersRepository
+class UsersRepository extends BaseRepository
 {
-    private $model;
-
-    public function __construct()
+    public function model(): string
     {
-        $this->model = new User();
+        return User::class;
     }
 
-    public function all()
+    
+    public function ajustData(array $input) //Usada para concordar los datos del form con la base de datos
     {
-        return $this->model->all();
+        $input['name'] = $input['name_user'];
+        unset($input['name_user']);
+
+        return $input;
     }
-    public function create($user)
-    {
-        $user->save();
-    }
-    public function show($id)
-    {
-        return $this->model::find($id);
-    }
-    public function update($id)
-    {
-        return $this->model::find($id);
-    }
-    public function delete($id)
-    {
-        return $this->model::find($id);
-    }
+
+    
 }

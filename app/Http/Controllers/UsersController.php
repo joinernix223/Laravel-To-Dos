@@ -28,20 +28,20 @@ class UsersController extends Controller
 
     public function store(StoreUsersFormRequest $request)
     {
-        $user = new User();
-        $user->name = $request->name_user;
-        $user->email = $request->email;
-        //$user->password = bcrypt($request->password); 
-        $user->password = $request->password; 
-        $this->userRepository->create($user);
-        $user->save();
+        $input = $request->validated();
+        //$input['name'] = $input['name_user'];
+        
+        //dd($input);
+        $adjustedInput = $this->userRepository->ajustData($input);
+        $this->userRepository->create($adjustedInput);
+        
     
         return redirect()->route('users.index')->with('success', 'Usuario agregado correctamente');
     }
 
     public function show(ShowUsersFormRequest $request, $id)
     {
-        $user = $this->userRepository->show($id);
+        $user = $this->userRepository->find($id);
         if(!$user){
            return redirect()->route('users.index')->with('error', 'El Usuario no existe');
         }
@@ -52,14 +52,17 @@ class UsersController extends Controller
 
     public function update(UpdateUsersFormRequest $request,$id)
     {
-        $user = $this->userRepository->update($id);
         
-        $user -> name = $request->name_user;
-        $user -> email = $request->email;
-        $user-> password = $request->password; 
+        //$user = $this->userRepository->update($id);
+        
+        $input = $request->validated();
+        //dd($input);
+        $adjustedInput = $this->userRepository->ajustData($input);
+         
+        $this->userRepository->update($adjustedInput,$id);
         //$user -> password = bcrypt($request->password);
         
-        $user->save();
+        
         return redirect()->route('users.index')->with('success', 'Usuario Actualizado Correctamente');
     }
 
@@ -71,7 +74,6 @@ class UsersController extends Controller
     public function destroy(DeleteUsersFormRequest $request, $id)
     {
         $user = $this->userRepository->delete($id);
-        $user -> delete();
 
         return redirect()->route('users.index')->with('success', 'Usuario Eliminado Correctamente');
     }

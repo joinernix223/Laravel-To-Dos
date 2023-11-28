@@ -52,8 +52,9 @@ abstract class BaseRepository
     public function update(array $data, $id): Model
     {
         $record = $this->model::query()->findOrFail($id);
+        //dd($record);
         $record->fill($data);
-        $record->save();
+        $record->update();
         return $record;
     }
 

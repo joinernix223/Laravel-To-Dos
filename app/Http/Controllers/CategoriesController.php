@@ -82,12 +82,15 @@ class CategoriesController extends Controller
         //TODO Implementar DeleteFormRequest COMPLETED,
 
         //validar que se elimine solo categorias que no tenga tareas asociadas PENDIENTE
-        $category = $this->categoryRepository->delete($category);
+        //dd($category);
+       
+        $this->categoryRepository->deleteTodos($category);
+        
 
-        $category->todos()->each(function ($todo) {
-            $todo->delete();
-        });
-        $category->delete();
+        // $category->todos()->each(function ($todo) {
+        //     $todo->delete();
+        // });
+        // $category->delete();
 
         return redirect()->route('categories.index')->with('success', 'Categoría Eliminada Correctamente!!');
 
