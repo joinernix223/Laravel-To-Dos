@@ -22,17 +22,20 @@ class StoreUsersFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name_user' => 'required',
-            'email' => 'email:rfc,dns|required',
-            'password' => 'required'
+
+            'name_user' => 'max:10|required',
+            'email' => 'email:rfc,dns',
+            'password' => 'required',
         ];
     }
-    public function messages(){
+    public function messages()
+    {
         return[
-            'name_user.required' => 'Nombre de usuario obligatorio',
-            'email.email' => 'Email no valido',
-            'email.required' => 'Email Obligatorio',
-            'password' => 'Contraseña requerida'
+            'user.required' => 'Nombre de usuario requerido',
+            'user.max' => 'Maximo 10 cararacteres',
+            'email' => 'Email no valido',
+            'password' => 'Contraseña obligatoria'
+
         ];
     }
 }
